@@ -20,6 +20,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
     "@types/chai": "^4.3.16",
