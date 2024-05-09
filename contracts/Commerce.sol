@@ -2,7 +2,11 @@
 pragma solidity ^0.8.24;
 
 contract Commerce {
-    string public name = "E-Commerce";
+    string public name;
+    address public owner;
 
-    constructor() {}
+    constructor() {
+        name = "E-Commerce";
+        owner = msg.sender;
+    }
 }

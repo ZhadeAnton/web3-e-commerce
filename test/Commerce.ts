@@ -3,21 +3,23 @@ import { expect } from "chai";
 import hre from "hardhat";
 
 async function deployCommerceFixture() {
-  const [owner, otherAccount] = await hre.viem.getWalletClients();
+  const [owner] = await hre.viem.getWalletClients();
   const publicClient = await hre.viem.getPublicClient();
+  const [deployer, buyer] = await owner.getAddresses();
   const commerce = await hre.viem.deployContract("Commerce");
 
   return {
+    deployer,
+    buyer,
     commerce,
     owner,
-    otherAccount,
     publicClient
   };
 }
 
 describe("Deploy", () => {
-  it("should has a name", async () => {
-    const { commerce } = await loadFixture(deployCommerceFixture);
-    expect(await commerce.read.name()).to.equal("E-Commerce");
+  it("sets the owner", async () => {
+    const { commerce, deployer } = await loadFixture(deployCommerceFixture);
+    expect(await commerce.read.owner()).to.equal(deployer);
   });
 });
