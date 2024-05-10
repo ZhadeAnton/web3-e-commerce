@@ -7,7 +7,6 @@
     "compile": "npx hardhat compile",
     "deploy": "npx hardhat ignition deploy ./ignition/modules/Commerce.js --network localhost",
     "node": "npx hardhat node",
-    "test:TS": "npx hardhat test --typecheck",
     "test": "npx hardhat test",
     "build": "next build",
     "start": "next start",
@@ -20,10 +19,8 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-chai-matchers": "^2.0.6",
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
     "@types/chai": "^4.3.16",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.12.11",
