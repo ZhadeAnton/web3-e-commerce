@@ -7,6 +7,15 @@ const tokens = (n: number) => {
   return ethers.parseUnits(n.toString(), "ether");
 };
 
+const ID = BigInt(1);
+const NAME = "Shoes";
+const CATEGORY = "Clothing";
+const IMAGE =
+  "https://ipfs.io/ipfs/QmTYEboq8raiBs7GTUg2yLXB3PMz6HuBNgNfSZBx5Msztg/shoes.jpg";
+const COST = tokens(1);
+const RATING = BigInt(4);
+const STOCK = BigInt(5);
+
 async function deployCommerceFixture() {
   const [owner] = await hre.viem.getWalletClients();
   const publicClient = await hre.viem.getPublicClient();
@@ -34,17 +43,9 @@ describe("Deploy", () => {
 });
 
 describe("Listing", () => {
-  const ID = BigInt(1);
-  const NAME = "Shoes";
-  const CATEGORY = "Clothing";
-  const IMAGE =
-    "https://ipfs.io/ipfs/QmTYEboq8raiBs7GTUg2yLXB3PMz6HuBNgNfSZBx5Msztg/shoes.jpg";
-  const COST = tokens(1);
-  const RATING = BigInt(4);
-  const STOCK = BigInt(5);
-
   it("returns item attributes", async () => {
     const { commerce, publicClient } = await loadFixture(deployCommerceFixture);
+
     const hash = await commerce.write.list([
       ID,
       NAME,
@@ -55,7 +56,8 @@ describe("Listing", () => {
       STOCK
     ]);
     await publicClient.waitForTransactionReceipt({ hash });
-    const item = await commerce.read.getListItemById([BigInt(1)]);
+
+    const item = await commerce.read.getListItemById([ID]);
     expect(item.id).to.equal(ID);
     expect(item.name).to.equal(NAME);
     expect(item.category).to.equal(CATEGORY);

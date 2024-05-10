@@ -14,8 +14,15 @@ contract Commerce {
         uint256 rating;
         uint256 stock;
     }
-    
+
     mapping(uint256 => Item) public items;
+
+    event List(string name, uint256 cost, uint256 quantity);
+
+    modifier onlyOwner() {
+        require(msg.sender == owner);
+        _;
+    }
 
     constructor() {
         name = "E-Commerce";
@@ -30,7 +37,7 @@ contract Commerce {
         uint256 _cost,
         uint256 _rating,
         uint256 _stock
-    ) public {
+    ) public onlyOwner {
         Item memory item = Item(
             _id,
             _name,
@@ -42,9 +49,12 @@ contract Commerce {
         );
 
         items[_id] = item;
+        emit List(_name, _cost, _stock);
     }
 
-    function getListItemById(uint256 _id) public view returns (Item memory) {
+    function getListItemById(
+        uint256 _id
+    ) public view onlyOwner returns (Item memory) {
         return items[_id];
     }
 }
