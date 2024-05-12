@@ -37,6 +37,10 @@ contract Commerce {
         owner = msg.sender;
     }
 
+    function getName() public view returns (string memory) {
+        return name;
+    }
+
     function list(
         uint256 _id,
         string memory _name,
