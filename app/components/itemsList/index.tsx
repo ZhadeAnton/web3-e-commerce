@@ -1,15 +1,9 @@
-import { useReadContract } from "wagmi";
-import Item from "../item";
-import commerceABI from "../../../artifacts/contracts/Commerce.sol/Commerce.json";
 import { IItem } from "@/types/itemTypes";
+import useReadContractFunction from "@/app/hooks/useReadContractFunction";
+import Item from "../item";
 
 const ItemsList = () => {
-  const { data, isLoading, error } = useReadContract({
-    ...commerceABI,
-    address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-    functionName: "getListItems"
-  });
-
+  const { data, isLoading, error } = useReadContractFunction("getListItems");
   const listItems = data as IItem[];
 
   if (isLoading) {

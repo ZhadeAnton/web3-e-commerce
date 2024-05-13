@@ -3,13 +3,18 @@
 import { useAccount, useDisconnect } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import ItemsList from "./components/itemsList";
+import Modal from "./components/modal";
+import { useItemsListContext } from "./context/itemsContext";
 
 function App() {
   const account = useAccount();
   const { disconnect } = useDisconnect();
+  const { isSelected, handleClearSelectedItem } = useItemsListContext();
 
   return (
     <div className="container mx-auto">
+      <Modal open={isSelected} onClose={handleClearSelectedItem} />
+
       <div className="navbar bg-base-100">
         <div className="flex-1">
           <div className="indicator">

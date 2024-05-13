@@ -1,9 +1,24 @@
-import { formatToEther, parseBigInt } from "@/utils/price";
+import { parseBigInt } from "@/utils/price";
 import { IItemProps } from "./types";
 import Image from "next/image";
 import Rating from "../rating";
+import { useItemsListContext } from "@/app/context/itemsContext";
 
-const Item = ({ name, image, category, cost, stock, rating }: IItemProps) => {
+const Item = ({
+  id,
+  name,
+  image,
+  category,
+  cost,
+  stock,
+  rating
+}: IItemProps) => {
+  const { selectItem } = useItemsListContext();
+
+  const handleSelectItem = () => {
+    selectItem(parseBigInt(id));
+  };
+
   return (
     <div className="card card-compact w-72 bg-base-100 shadow-xl">
       <figure>
@@ -22,7 +37,9 @@ const Item = ({ name, image, category, cost, stock, rating }: IItemProps) => {
 
         <Rating value={parseBigInt(rating)} />
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">{parseBigInt(cost)} ETH</button>
+          <button className="btn btn-primary" onClick={handleSelectItem}>
+            {parseBigInt(cost)} ETH
+          </button>
         </div>
       </div>
     </div>
