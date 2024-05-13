@@ -21,7 +21,7 @@ const ItemsList = () => {
   }
 
   return (
-    <ul>
+    <ul className="flex flex-wrap gap-5">
       {listItems.map((item) => (
         <li key={item.id}>
           <Item {...item} />

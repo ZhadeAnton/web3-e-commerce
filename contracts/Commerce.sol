@@ -59,7 +59,7 @@ contract Commerce {
             _stock
         );
 
-        items[_id] = item;
+        items[listItemsCount] = item;
         listItemsCount++;
         emit List(_name, _cost, _stock);
     }

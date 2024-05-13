@@ -3,7 +3,7 @@ export interface IItem {
   name: string;
   category: string;
   image: string;
-  cost: number;
+  cost: string;
   rating: number;
   stock: number;
 }
