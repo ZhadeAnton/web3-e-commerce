@@ -2,19 +2,16 @@
 
 import { useAccount, useDisconnect, useReadContract } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import commerceABI from "../abis/commerceABI.json";
+import { ethers } from "ethers";
+import ItemsList from "./components/itemsList";
+
+const tokens = (n: string) => {
+  return ethers.parseUnits(n.toString(), "ether");
+};
 
 function App() {
   const account = useAccount();
   const { disconnect } = useDisconnect();
-
-  const result = useReadContract({
-    ...commerceABI,
-    address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-    functionName: "getName"
-  });
-
-  console.log("result", result.data);
 
   return (
     <>
@@ -39,6 +36,11 @@ function App() {
                 Disconnect
               </button>
             )}
+          </div>
+        </div>
+        <div>
+          <div className="flex-none">
+            <ItemsList />
           </div>
         </div>
       </div>

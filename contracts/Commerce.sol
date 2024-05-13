@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.24;
+import "hardhat/console.sol";
 
 contract Commerce {
     string public name;
     address public owner;
+    uint public listItemsCount;
 
     struct Item {
         uint256 id;
@@ -35,10 +37,7 @@ contract Commerce {
     constructor() {
         name = "E-Commerce";
         owner = msg.sender;
-    }
-
-    function getName() public view returns (string memory) {
-        return name;
+        listItemsCount = 0;
     }
 
     function list(
@@ -61,6 +60,7 @@ contract Commerce {
         );
 
         items[_id] = item;
+        listItemsCount++;
         emit List(_name, _cost, _stock);
     }
 
@@ -68,6 +68,16 @@ contract Commerce {
         uint256 _id
     ) public view onlyOwner returns (Item memory) {
         return items[_id];
+    }
+
+    function getListItems() public view returns (Item[] memory) {
+        Item[] memory itemsArray = new Item[](listItemsCount);
+
+        for (uint i = 0; i < listItemsCount; i++) {
+            itemsArray[i] = items[i];
+        }
+
+        return itemsArray;
     }
 
     function buy(uint256 _id) public payable {

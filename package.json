@@ -5,10 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "compile": "npx hardhat compile",
-    "deploy": "npx hardhat ignition deploy ./ignition/modules/Commerce.js --network localhost",
     "node": "npx hardhat node",
+    "deploy": "npx hardhat ignition deploy ./ignition/modules/Commerce.js --reset --network localhost",
     "test": "npx hardhat test",
-    "generate:hooks": "npx wagmi generate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -18,6 +17,7 @@
     "@tanstack/react-query": "^5.35.5",
     "@wagmi/connectors": "^4.3.7",
     "@wagmi/core": "^2.9.5",
+    "dotenv": "^16.4.5",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
@@ -37,6 +37,7 @@
     "daisyui": "^4.11.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
+    "ethers": "^6.12.1",
     "hardhat": "^2.22.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
