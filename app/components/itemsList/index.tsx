@@ -1,4 +1,3 @@
-import { IItem } from "@/types/itemTypes";
 import { useItemsListContext } from "@/app/context/itemsContext";
 import Item from "../item";
 
@@ -6,7 +5,7 @@ const ItemsList = () => {
   const { listItems, isLoading, error } = useItemsListContext();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <span className="loading loading-spinner loading-lg"></span>;
   }
 
   if (error) {

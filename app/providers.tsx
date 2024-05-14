@@ -5,8 +5,9 @@ import { useState, type ReactNode } from "react";
 import { WagmiProvider } from "wagmi";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { config } from "@/wagmi";
-import "@rainbow-me/rainbowkit/styles.css";
 import { ItemsListProvider } from "./context/itemsContext";
+import { TransactionProvider } from "./context/transactionContext";
+import "@rainbow-me/rainbowkit/styles.css";
 
 export function Providers(props: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -15,7 +16,9 @@ export function Providers(props: { children: ReactNode }) {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider>
-          <ItemsListProvider>{props.children}</ItemsListProvider>
+          <TransactionProvider>
+            <ItemsListProvider>{props.children}</ItemsListProvider>
+          </TransactionProvider>
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>

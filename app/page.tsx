@@ -6,11 +6,14 @@ import ItemsList from "./components/itemsList";
 import Modal from "./components/modal";
 import { useItemsListContext } from "./context/itemsContext";
 import ModalItem from "./components/modalItem";
+import Toast from "./components/toast";
+import { useBuyTransactionContext } from "./context/transactionContext";
 
 function App() {
   const account = useAccount();
   const { disconnect } = useDisconnect();
   const { isSelected, handleClearSelectedItem } = useItemsListContext();
+  const { error } = useBuyTransactionContext();
 
   return (
     <div className="container mx-auto">
@@ -45,6 +48,8 @@ function App() {
           <ItemsList />
         </div>
       </div>
+
+      {error && isSelected && <Toast text={error?.message} />}
     </div>
   );
 }

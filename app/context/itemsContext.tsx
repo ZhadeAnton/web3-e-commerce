@@ -9,6 +9,7 @@ import {
 import useReadContractFunction from "../hooks/useReadContractFunction";
 import { IItem } from "@/types/itemTypes";
 import { ReadContractErrorType } from "viem";
+import { useBuyTransactionContext } from "./transactionContext";
 
 interface IItemsListProvider {
   listItems: IItem[];
@@ -35,6 +36,7 @@ export function ItemsListProvider({ children }: PropsWithChildren) {
     undefined
   );
   const { data, ...rest } = useReadContractFunction("getListItems");
+  const { handleClearTransactionError } = useBuyTransactionContext();
 
   const listItems = useMemo(() => {
     return data as IItem[];
@@ -50,7 +52,8 @@ export function ItemsListProvider({ children }: PropsWithChildren) {
 
   const handleClearSelectedItem = useCallback(() => {
     setSelectedItemId(undefined);
-  }, []);
+    handleClearTransactionError();
+  }, [handleClearTransactionError]);
 
   return (
     <ItemsListProviderContext.Provider

@@ -1,35 +1,29 @@
 import { useItemsListContext } from "@/app/context/itemsContext";
 import { parseBigInt } from "@/utils/price";
 import Image from "next/image";
-import {
-  useSendTransaction,
-  useWaitForTransactionReceipt,
-  type BaseError
-} from "wagmi";
+import { useBuyTransactionContext } from "@/app/context/transactionContext";
+import Transaction from "../transaction";
 
 const ModalItem = () => {
   const { selectedItem } = useItemsListContext();
-  const {
-    data: hash,
-    error,
-    isPending,
-    sendTransaction
-  } = useSendTransaction();
-  const { isLoading: isConfirming, isSuccess: isConfirmed } =
-    useWaitForTransactionReceipt({
-      hash
-    });
+  const { hash, isPending, isConfirming, isConfirmed, handleTransaction } =
+    useBuyTransactionContext();
 
   if (!selectedItem) return <div>Error</div>;
 
   const { image, name, cost } = selectedItem;
 
-  const handleBuy = async () => {
-    sendTransaction({
-      to: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-      value: BigInt(cost)
-    });
+  const handleBuy = () => {
+    handleTransaction(cost);
   };
+
+  if (isConfirmed) {
+    return (
+      <div className="flex flex-col ">
+        <Transaction hash={hash} isConfirmed={isConfirmed} />
+      </div>
+    );
+  }
 
   return (
     <div className="flex gap-2">
@@ -56,14 +50,6 @@ const ModalItem = () => {
             {isPending ? "Confirming..." : "Buy"}
           </button>
         </div>
-      </div>
-      <div>
-        {hash && <div>Transaction Hash: {hash}</div>}
-        {isConfirming && <div>Waiting for confirmation...</div>}
-        {isConfirmed && <div>Transaction confirmed.</div>}
-        {error && (
-          <div>Error: {(error as BaseError).shortMessage || error.message}</div>
-        )}
       </div>
     </div>
   );
