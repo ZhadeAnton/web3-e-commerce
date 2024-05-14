@@ -13,10 +13,10 @@ const Item = ({
   stock,
   rating
 }: IItemProps) => {
-  const { selectItem } = useItemsListContext();
+  const { handleSelectItem } = useItemsListContext();
 
-  const handleSelectItem = () => {
-    selectItem(parseBigInt(id));
+  const onClick = () => {
+    handleSelectItem(id);
   };
 
   return (
@@ -37,7 +37,7 @@ const Item = ({
 
         <Rating value={parseBigInt(rating)} />
         <div className="card-actions justify-end">
-          <button className="btn btn-primary" onClick={handleSelectItem}>
+          <button className="btn btn-primary" onClick={onClick}>
             {parseBigInt(cost)} ETH
           </button>
         </div>

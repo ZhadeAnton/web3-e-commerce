@@ -5,6 +5,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import ItemsList from "./components/itemsList";
 import Modal from "./components/modal";
 import { useItemsListContext } from "./context/itemsContext";
+import ModalItem from "./components/modalItem";
 
 function App() {
   const account = useAccount();
@@ -13,7 +14,9 @@ function App() {
 
   return (
     <div className="container mx-auto">
-      <Modal open={isSelected} onClose={handleClearSelectedItem} />
+      <Modal open={isSelected} onClose={handleClearSelectedItem}>
+        <ModalItem />
+      </Modal>
 
       <div className="navbar bg-base-100">
         <div className="flex-1">

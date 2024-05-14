@@ -1,10 +1,9 @@
 import { IItem } from "@/types/itemTypes";
-import useReadContractFunction from "@/app/hooks/useReadContractFunction";
+import { useItemsListContext } from "@/app/context/itemsContext";
 import Item from "../item";
 
 const ItemsList = () => {
-  const { data, isLoading, error } = useReadContractFunction("getListItems");
-  const listItems = data as IItem[];
+  const { listItems, isLoading, error } = useItemsListContext();
 
   if (isLoading) {
     return <div>Loading...</div>;
